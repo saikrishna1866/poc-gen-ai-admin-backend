@@ -36,9 +36,3 @@ npm start
 
 ## Environment Variables
 Create a `.env` file in the root directory and add:
-
-- Render
-
-## License
-This project is licensed under the MIT License.
-
