@@ -16,30 +16,30 @@ const requiredEnvVars = [
 const { isValid, missingVars } = validateEnvVariables(requiredEnvVars);
 
 if (!isValid) {
-    console.error('❌ Missing required environment variables:');
+    console.error('Missing required environment variables:');
     missingVars.forEach(variable => {
         console.error(`   - ${variable}`);
     });
     process.exit(1);
 }
 
-console.log('✅ All required environment variables are set');
+console.log('All required environment variables are set');
 
 // First, validate the SECRET_PATH environment variable
 const isSecretsValid = validateSecretsPath("SECRET_PATH");
 if (!isSecretsValid) {
-    console.error("❌ Failed to validate secrets. Exiting...");
+    console.error("Failed to validate secrets. Exiting...");
     process.exit(1);
 }
 
 // getSecret
 const clientSecret = getSecret("GEN_AI_LLM_CLIENT_SECRET");
 if (!clientSecret) {
-    console.error("❌ Failed to retrieve client secret. Exiting...");
+    console.error(" Failed to retrieve client secret. Exiting...");
     process.exit(1);
 }
 else {
-    console.log("✅ Client secret retrieved successfully.");
+    console.log("Client secret retrieved successfully.");
     console.log("Client secret:", clientSecret);
 }
 
@@ -49,11 +49,12 @@ const corsOptions = {
 const beta = '/beta';
 const app = express();
 const PORT = getEnvVariable("PORT") || 3000;
+app.use(express.json());
 app.use(cors(corsOptions));
 app.use(beta + '/api', routes);
 
 app.listen(PORT, () => {
-    console.log(`✅ Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;

@@ -18,19 +18,19 @@ const loadSecrets = (): SecretsCache => {
     try {
         const secretPath = getEnvVariable('SECRET_PATH');
         if (!secretPath) {
-            console.error('❌ SECRET_PATH environment variable is not set');
+            console.error('SECRET_PATH environment variable is not set');
             return {};
         }
 
         const fullPath = path.resolve(secretPath);
         if (!fs.existsSync(fullPath)) {
-            console.error(`❌ Secrets file does not exist at: ${fullPath}`);
+            console.error(`Secrets file does not exist at: ${fullPath}`);
             return {};
         }
 
         const fileContent = fs.readFileSync(fullPath, 'utf8');
         if (!fileContent.trim()) {
-            console.warn('⚠️ Secrets file is empty');
+            console.warn('Secrets file is empty');
             return {};
         }
 
@@ -56,7 +56,7 @@ const loadSecrets = (): SecretsCache => {
         secretsCache = parsedSecrets;
         return parsedSecrets;
     } catch (error) {
-        console.error('❌ Error loading secrets:', error);
+        console.error('Error loading secrets:', error);
         return {};
     }
 };
@@ -72,13 +72,13 @@ export const getSecret = (secretName: string): string | undefined => {
         const value = secrets[secretName];
         
         if (!value) {
-            console.warn(`⚠️ Secret "${secretName}" does not exist.`);
+            console.warn(`Secret "${secretName}" does not exist.`);
             return undefined;
         }
         
         return value;
     } catch (error) {
-        console.error(`❌ Error retrieving secret "${secretName}":`, error);
+        console.error(`Error retrieving secret "${secretName}":`, error);
         return undefined;
     }
 };
